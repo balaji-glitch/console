@@ -1,37 +1,24 @@
-import { useEffect, useState } from "react";
-import apiClient from "./service/api-client";
-import { Spinner, Text } from "@chakra-ui/react";
-
-interface Games {
-  id: number;
-  name: string;
-}
-interface FetchGameResponse {
-  count: number;
-  results: Games[];
-}
+import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import useGames from "./hooks/useGames";
+import Gamecard from "./components/Gamecard";
 
 const Gamegrid = () => {
-  const [isloading, setloading] = useState(false);
-  const [game, setgame] = useState<Games[]>([]);
-  const [error, seterror] = useState("");
-  useEffect(() => {
-    setloading(true);
-    apiClient
-      .get<FetchGameResponse>("/games")
-      .then((res) => setgame(res.data.results))
-      .catch((err) => console.log(seterror(err.message)));
-  });
+  const { game, error, isloading } = useGames();
+
   if (isloading == false) return <Spinner></Spinner>;
 
   return (
     <>
       {error && <Text>{error}</Text>}
-      <ul>
-        {game.map((games) => (
-          <li key={games.id}> {games.name}</li>
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+        spacing={10}
+        padding={"10px"}
+      >
+        {game.map((data) => (
+          <Gamecard key={data.id} game={data} />
         ))}
-      </ul>
+      </SimpleGrid>
     </>
   );
 };
