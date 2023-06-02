@@ -1,3 +1,6 @@
+import { Card, CardBody, HStack, Heading, Icon, Image } from "@chakra-ui/react";
+import { Games } from "../hooks/useGames";
+
 import {
   FaWindows,
   FaPlaystation,
@@ -9,13 +12,8 @@ import {
 import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
 import { BsGlobe } from "react-icons/bs";
-import { Card, CardBody, HStack, Heading, Icon, Image } from "@chakra-ui/react";
-import { Games } from "../hooks/useGames";
 import { IconType } from "react-icons";
-
-interface Props {
-  game: Games;
-}
+import CriticScore from "./CriticScore";
 const iconmap: { [key: string]: IconType } = {
   pc: FaWindows,
   playstation: FaPlaystation,
@@ -27,6 +25,10 @@ const iconmap: { [key: string]: IconType } = {
   nintendo: SiNintendo,
   web: BsGlobe,
 };
+interface Props {
+  game: Games;
+}
+
 const Gamecard = ({ game }: Props) => {
   return (
     <>
@@ -34,10 +36,11 @@ const Gamecard = ({ game }: Props) => {
         <Image src={game.background_image} />
         <CardBody>
           <Heading fontSize={"2xl"}>{game.name}</Heading>
-          <HStack marginY={"10px"} color={"gray.500"}>
+          <HStack>
             {game.parent_platforms.map(({ platform }) => (
               <Icon as={iconmap[platform.slug]}></Icon>
             ))}
+            <CriticScore score={game.metacritic} />
           </HStack>
         </CardBody>
       </Card>
