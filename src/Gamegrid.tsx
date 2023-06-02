@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "./service/api-client";
+import { Spinner, Text } from "@chakra-ui/react";
 
 interface Games {
   id: number;
@@ -21,9 +22,11 @@ const Gamegrid = () => {
       .then((res) => setgame(res.data.results))
       .catch((err) => console.log(seterror(err.message)));
   });
+  if (isloading == false) return <Spinner></Spinner>;
 
   return (
     <>
+      {error && <Text>{error}</Text>}
       <ul>
         {game.map((games) => (
           <li key={games.id}> {games.name}</li>
