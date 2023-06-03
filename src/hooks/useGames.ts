@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import apiClient from "../service/api-client";
-import { Controller } from "react-hook-form";
 import { CanceledError } from "axios";
 export interface Platform {
   id: number;
@@ -34,7 +33,7 @@ const useGames = () => {
         setloading(false);
       })
       .catch((err) => {
-        if (err instanceof CanceledError) seterror(err.message);
+        if (err instanceof CanceledError) seterror("");
         setloading(false);
       });
     60;
