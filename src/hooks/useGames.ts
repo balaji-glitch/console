@@ -34,7 +34,6 @@ const useGames = () => {
       })
       .catch((err) => {
         if (err instanceof CanceledError) seterror("");
-        setloading(false);
       });
     60;
     return () => controller.abort();
