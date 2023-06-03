@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../service/api-client";
 import { Controller } from "react-hook-form";
+import { CanceledError } from "axios";
 export interface Platform {
   id: number;
   name: string;
@@ -27,12 +28,15 @@ const useGames = () => {
     const controller = new AbortController();
     setloading(true);
     apiClient
-      .get<FetchGameResponse>("/games")
+      .get<FetchGameResponse>("/games", { signal: controller.signal })
       .then((res) => {
         setgame(res.data.results);
         setloading(false);
       })
-      .catch((err) => console.log(seterror(err.message)));
+      .catch((err) => {
+        if (err instanceof CanceledError) seterror(err.message);
+        setloading(false);
+      });
     60;
     return () => controller.abort();
   }, []);
