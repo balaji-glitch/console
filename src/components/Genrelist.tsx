@@ -10,9 +10,10 @@ import useGeners, { Genre } from "../hooks/useGeners";
 import GetcropedImageUrl from "../service/GetcropedIamge";
 interface Props {
   onselectedgenre: (genres: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-const Genrelist = ({ onselectedgenre }: Props) => {
+const Genrelist = ({ selectedGenre, onselectedgenre }: Props) => {
   const { data, isloading } = useGeners();
   if (isloading) return <Spinner />;
   return (
@@ -26,7 +27,11 @@ const Genrelist = ({ onselectedgenre }: Props) => {
                 borderRadius={"10px"}
                 src={GetcropedImageUrl(data.image_background)}
               />
-              <Button variant={"link"} onClick={() => onselectedgenre(data)}>
+              <Button
+                fontWeight={data.id == selectedGenre?.id ? "bold" : "normal"}
+                variant={"link"}
+                onClick={() => onselectedgenre(data)}
+              >
                 {" "}
                 {data.name}
               </Button>
