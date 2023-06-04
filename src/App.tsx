@@ -1,4 +1,4 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Show } from "@chakra-ui/react";
 import Navbar from "./components/NavBar/Navbar";
 
 import Genrelist from "./components/Genrelist";
@@ -7,13 +7,15 @@ import { useState } from "react";
 import { Genre } from "./hooks/useGeners";
 import PlatformSelector from "./components/PlatformSelector";
 import { Platform } from "./hooks/usePlatform";
+import SortButton from "./components/SortButton";
+
+export interface GameQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+}
 
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const [selectedplatform, setselectedplatform] = useState<Platform | null>(
-    null
-  );
-
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
   return (
     <>
       <Grid
@@ -32,20 +34,23 @@ function App() {
         <Show above="lg">
           <GridItem padding={"10px"} area="aside" bg="">
             <Genrelist
-              selectedGenre={selectedGenre}
-              onselectedgenre={(genre) => setSelectedGenre(genre)}
+              selectedGenre={gameQuery.genre}
+              onselectedgenre={(genre) => setGameQuery({ ...gameQuery, genre })}
             />
           </GridItem>
         </Show>
         <GridItem area="main" bg="">
-          <PlatformSelector
-            onselectplatform={selectedplatform}
-            onSelectPlatform={(data) => setselectedplatform(data)}
-          />
-          <Gamegrid
-            selectedPlatform={selectedplatform}
-            selectedgenre={selectedGenre}
-          ></Gamegrid>
+          <HStack paddingBottom={2}>
+            <PlatformSelector
+              onselectplatform={gameQuery.platform}
+              onSelectPlatform={(platform) =>
+                setGameQuery({ ...gameQuery, platform })
+              }
+            />
+            <SortButton />
+          </HStack>
+
+          <Gamegrid gameQuery={gameQuery}></Gamegrid>
         </GridItem>
       </Grid>
     </>
