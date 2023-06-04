@@ -20,7 +20,7 @@ const PlatformSelector = ({ onSelectPlatform, onselectplatform }: Props) => {
         as={Button}
         rightIcon={<BsChevronDown />}
       >
-        {onselectplatform?.name}
+        Filter By {onselectplatform?.name}
       </MenuButton>
       <MenuList>
         {data.map((data) => (
