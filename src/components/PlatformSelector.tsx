@@ -15,12 +15,12 @@ const PlatformSelector = ({ onSelectPlatform, onselectplatform }: Props) => {
     <Menu>
       <MenuButton
         marginX={2}
-        width={"170px"}
+        width={"250px"}
         borderRadius={"10px"}
         as={Button}
         rightIcon={<BsChevronDown />}
       >
-        Filter By {onselectplatform?.name}
+        Filter By : {onselectplatform?.name}
       </MenuButton>
       <MenuList>
         {data.map((data) => (
