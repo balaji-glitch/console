@@ -14,9 +14,9 @@ const PlatformSelector = ({ onSelectPlatform, onselectplatform }: Props) => {
   return (
     <Menu>
       <MenuButton
-        mb={3}
-        width={"150px"}
-        borderRadius={"15px"}
+        marginX={2}
+        width={"170px"}
+        borderRadius={"10px"}
         as={Button}
         rightIcon={<BsChevronDown />}
       >
