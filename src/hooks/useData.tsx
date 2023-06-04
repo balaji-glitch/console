@@ -34,7 +34,6 @@ const useData = <T,>(
       60;
       return () => controller.abort();
     },
-
     deps ? [...deps] : []
   );
 
