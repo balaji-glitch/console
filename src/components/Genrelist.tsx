@@ -25,6 +25,7 @@ const Genrelist = ({ selectedGenre, onselectedgenre }: Props) => {
               <Image
                 boxSize={"32px"}
                 borderRadius={"10px"}
+                objectFit={"cover"}
                 src={GetcropedImageUrl(data.image_background)}
               />
               <Button
